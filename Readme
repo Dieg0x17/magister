@@ -1,0 +1,31 @@
+Hacer el siguiente comando para preparar el entorno con los modulos adecuados
+pip install -r requeriments.txt
+
+Obtener el token json para auth de google en una cuenta con aceso a sheets y drive.
+https://www.analyticsvidhya.com/blog/2020/07/read-and-update-google-spreadsheets-with-python/
+
+Usando el modulo gspread se acceden a las hojas de calculo con oauth de un servicio para bots
+https://gspread.readthedocs.io/en/latest/oauth2.html#for-bots-using-service-account
+Hay que dar permiso desde la hoja de calculo al email generado del servicio que se encuentra en el json y poner el titulo de la hoja para identificarla.
+
+Se importan los datos a postgresql usando psycopg2 o el wrapper de conexión de django junto a los modelos de este
+Para esto se comprueban los datos de la cadena de conexión con la base de datos
+
+Usando cron o crontab se ejecuta este servicio periodicamente cada 10 mins para refrescar los datos de la hoja en la base de datos
+Añadir la siguiente linea suponiendo que el script esta en el home
+*/10 * * * * /usr/bin/python3 ~/import_sheet.py
+
+Se debe configurar postgresql antes de usar la base de datos
+se crea la base de datos y el usuario una vez instalado en el sistema
+ CREATE DATABASE mydb;
+ CREATE USER myuser WITH ENCRYPTED PASSWORD 'mypass';
+ GRANT ALL PRIVILEGES ON DATABASE mydb TO myuser;
+
+ Una vez creada la base de datos y el usuario para conectar se hacen las migraciones desde django para que este genere las tablas
+ python manage.py migrate
+
+ para ejecutar el proyecto se puede hacer desde el comando
+ python manage.py runserver
+ Esto arranca el server de pruebas
+
+ Para hacer el deploy del proyecto se debe usar nginx o apache como servidor web junto a gunicorn

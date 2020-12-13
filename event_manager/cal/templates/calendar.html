@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/calendar/">
+    <span>Profesor:</span><input type="text" id="profesor" name="profesor">
+    <span>Grupo:</span><input type="text" id="grupo" name="grupo">
+    <span>Año-mes:</span><input type="text" id="fecha" name="fecha"><input type="submit" value="Submit">
+</form>
+
+{{ calendar }}
+{% endblock %}
